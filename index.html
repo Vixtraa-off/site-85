@@ -1,288 +1,77 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Installation N°85</title>
-  <meta name="description" content="Découvrez la refonte de l'Installation N°85.">
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body {
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: #fff;
-      background:
-        radial-gradient(circle at 50% 20%, rgba(90, 110, 255, .20), transparent 35%),
-        radial-gradient(circle at 80% 80%, rgba(0, 220, 255, .10), transparent 30%),
-        #05060a;
-      overflow-x: hidden;
-    }
-
-    .noise {
-      position: fixed; inset: 0; pointer-events: none; opacity: .035; z-index: 10;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
-    }
-
-    .hero {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      padding: 40px 20px;
-      position: relative;
-    }
-
-    .grid {
-      position: absolute; inset: 0; opacity: .18;
-      background-image:
-        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px);
-      background-size: 45px 45px;
-      mask-image: linear-gradient(to bottom, black, transparent 80%);
-    }
-
-    .content { position: relative; z-index: 2; max-width: 900px; }
-
-    .eyebrow {
-      display: inline-block;
-      padding: 8px 14px;
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 999px;
-      color: #aeb8ff;
-      font-size: 12px;
-      letter-spacing: 4px;
-      text-transform: uppercase;
-      margin-bottom: 25px;
-      backdrop-filter: blur(8px);
-    }
-
-    h1 {
-      font-size: clamp(4rem, 13vw, 10rem);
-      line-height: .82;
-      letter-spacing: -8px;
-      font-weight: 900;
-      text-shadow: 0 0 50px rgba(105, 120, 255, .25);
-    }
-
-    h1 span {
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,.8);
-    }
-
-    .subtitle {
-      max-width: 650px;
-      margin: 35px auto 0;
-      color: #b7bac7;
-      font-size: clamp(1rem, 2vw, 1.25rem);
-      line-height: 1.7;
-    }
-
-    .actions {
-      margin-top: 35px;
-      display: flex;
-      gap: 12px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    button, .link {
-      border: 0;
-      cursor: pointer;
-      text-decoration: none;
-      padding: 14px 22px;
-      border-radius: 10px;
-      font-weight: 700;
-      font-size: 14px;
-      transition: .25s ease;
-    }
-
-    .primary {
-      color: #05060a;
-      background: #fff;
-      box-shadow: 0 0 35px rgba(255,255,255,.14);
-    }
-    .primary:hover { transform: translateY(-2px); box-shadow: 0 0 45px rgba(255,255,255,.25); }
-
-    .secondary {
-      color: #fff;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.15);
-    }
-    .secondary:hover { background: rgba(255,255,255,.11); }
-
-    .audio-status {
-      margin-top: 16px;
-      min-height: 20px;
-      color: #777c8e;
-      font-size: 12px;
-    }
-
-    section {
-      position: relative;
-      padding: 110px 20px;
-    }
-
-    .section-inner {
-      max-width: 1050px;
-      margin: auto;
-    }
-
-    .section-title {
-      font-size: clamp(2rem, 5vw, 4rem);
-      margin-bottom: 20px;
-      letter-spacing: -2px;
-    }
-
-    .section-title span { color: #8995ff; }
-
-    .intro {
-      max-width: 760px;
-      color: #9ea2b2;
-      line-height: 1.8;
-      font-size: 1.05rem;
-    }
-
-    .cards {
-      margin-top: 45px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .card {
-      padding: 28px;
-      min-height: 180px;
-      border: 1px solid rgba(255,255,255,.09);
-      border-radius: 18px;
-      background: linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.025));
-      backdrop-filter: blur(10px);
-      transition: transform .3s ease, border-color .3s ease;
-    }
-
-    .card:hover { transform: translateY(-6px); border-color: rgba(137,149,255,.45); }
-    .number { color: #8995ff; font-size: 12px; letter-spacing: 3px; }
-    .card h3 { margin: 18px 0 10px; font-size: 1.35rem; }
-    .card p { color: #858998; line-height: 1.6; }
-
-    .cta {
-      text-align: center;
-      border-top: 1px solid rgba(255,255,255,.07);
-    }
-
-    .cta p { color: #8d91a0; margin: 15px auto 28px; max-width: 550px; line-height: 1.7; }
-
-    footer {
-      text-align: center;
-      padding: 30px 20px 45px;
-      color: #555968;
-      font-size: 12px;
-      border-top: 1px solid rgba(255,255,255,.06);
-    }
-
-    @media (max-width: 750px) {
-      .cards { grid-template-columns: 1fr; }
-      h1 { letter-spacing: -4px; }
-      section { padding: 80px 20px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Installation N°85</title>
+<style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#020307;color:#fff;font-family:Arial,Helvetica,sans-serif;overflow-x:hidden}
+#intro{min-height:100vh;display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}
+#intro .content{position:relative;z-index:3;padding:30px;transition:opacity 1.2s,transform 1.2s}
+.kicker{font-size:12px;letter-spacing:5px;color:#9ca6ff;text-transform:uppercase;margin-bottom:24px}
+h1{font-size:clamp(52px,11vw,145px);line-height:.82;margin:0;font-weight:900;letter-spacing:-7px}
+h1 span{color:transparent;-webkit-text-stroke:1px #fff}
+.lead{max-width:650px;margin:30px auto;color:#aeb2c0;font-size:18px;line-height:1.7}
+button{border:1px solid rgba(255,255,255,.2);background:#fff;color:#05060a;border-radius:9px;padding:15px 24px;font-weight:800;cursor:pointer;transition:.25s}
+button:hover{transform:translateY(-2px)}
+#status{margin-top:14px;color:#666b7b;font-size:12px}
+#visual{position:absolute;inset:-20%;opacity:0;transform:scale(.8);transition:opacity 1.5s,transform 2s;background:
+radial-gradient(circle at 50% 50%,rgba(100,120,255,.18),transparent 20%),
+radial-gradient(circle at 20% 30%,rgba(0,220,255,.14),transparent 18%),
+radial-gradient(circle at 80% 70%,rgba(170,70,255,.13),transparent 20%)}
+#visual:before,#visual:after{content:"";position:absolute;inset:0;background:
+linear-gradient(rgba(120,140,255,.13) 1px,transparent 1px),
+linear-gradient(90deg,rgba(120,140,255,.13) 1px,transparent 1px);background-size:70px 70px;transform:perspective(500px) rotateX(55deg) scale(1.5);animation:grid 12s linear infinite}
+#visual:after{background:none;border:1px solid rgba(130,150,255,.15);border-radius:50%;width:55vw;height:55vw;left:22%;top:22%;animation:spin 16s linear infinite}
+@keyframes grid{to{background-position:0 70px,70px 0}}@keyframes spin{to{transform:rotate(360deg)}} 
+body.playing #visual{opacity:1;transform:scale(1)}
+body.playing #intro .content{opacity:0;transform:scale(1.08);pointer-events:none}
+#lyrics{position:absolute;z-index:5;left:50%;bottom:11%;transform:translate(-50%,20px);width:min(900px,90%);opacity:0;text-align:center;transition:opacity .7s,transform .7s}
+body.playing #lyrics{opacity:1;transform:translate(-50%,0)}
+#lyricText{font-size:clamp(22px,4vw,44px);font-weight:700;line-height:1.25;text-shadow:0 3px 25px #000}
+#counter{margin-top:14px;color:#8992ad;font-size:11px;letter-spacing:3px;text-transform:uppercase}
+#replay{display:none;position:absolute;z-index:7;left:50%;top:50%;transform:translate(-50%,-50%);background:rgba(255,255,255,.94)}
+body.finished #replay{display:block}body.finished #lyrics{opacity:0}
+body.finished #visual{opacity:.7}
+@media(prefers-reduced-motion:reduce){#visual:before,#visual:after{animation:none}}
+</style>
 </head>
 <body>
-  <div class="noise"></div>
-
-  <main>
-    <section class="hero">
-      <div class="grid"></div>
-      <div class="content">
-        <div class="eyebrow">Dossier // 085</div>
-        <h1>INSTALLATION <span>N°85</span></h1>
-        <p class="subtitle">
-          Un nouveau monde vous attend. De nouveaux rôles, une nouvelle atmosphère
-          et surtout… un tout nouveau gameplay.
-        </p>
-
-        <div class="actions">
-          <button class="primary" id="audioBtn">▶ Écouter la présentation</button>
-          <a class="link secondary" href="#decouvrir">Découvrir l'installation</a>
-        </div>
-
-        <div class="audio-status" id="audioStatus">Audio prêt — cliquez pour lancer la présentation.</div>
-        <audio id="presentationAudio" src="SIte-85.mp3" preload="metadata"></audio>
-      </div>
-    </section>
-
-    <section id="decouvrir">
-      <div class="section-inner">
-        <div class="eyebrow">La refonte</div>
-        <h2 class="section-title">Bienvenue dans un <span>nouveau monde.</span></h2>
-        <p class="intro">
-          Bienvenue sur l'Installation N°85. Vous allez découvrir un tout nouveau
-          monde rempli de surprises. La refonte apporte de nouveaux rôles, une
-          nouvelle atmosphère et surtout un nouveau gameplay pensé pour renouveler
-          votre expérience.
-        </p>
-
-        <div class="cards">
-          <article class="card">
-            <div class="number">01 — RÔLES</div>
-            <h3>De nouvelles possibilités</h3>
-            <p>Découvrez de nouveaux rôles et de nouvelles façons d'interagir avec l'univers de l'Installation N°85.</p>
-          </article>
-
-          <article class="card">
-            <div class="number">02 — ATMOSPHÈRE</div>
-            <h3>Une ambiance repensée</h3>
-            <p>Une nouvelle identité visuelle et une atmosphère qui vous plongent au cœur de l'expérience.</p>
-          </article>
-
-          <article class="card">
-            <div class="number">03 — GAMEPLAY</div>
-            <h3>Une expérience renouvelée</h3>
-            <p>Un gameplay entièrement repensé pour proposer une aventure plus surprenante et immersive.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="section-inner">
-        <div class="eyebrow">Accès autorisé</div>
-        <h2 class="section-title">N'attendez plus.</h2>
-        <p>Venez découvrir la refonte de l'Installation N°85 et entrez dans cette nouvelle expérience.</p>
-        <button class="primary" onclick="document.getElementById('audioBtn').click()">▶ Rejouer l'introduction</button>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    INSTALLATION N°85 — Une nouvelle expérience commence ici.
-  </footer>
-
-  <script>
-    const audio = document.getElementById('presentationAudio');
-    const btn = document.getElementById('audioBtn');
-    const status = document.getElementById('audioStatus');
-
-    btn.addEventListener('click', async () => {
-      if (audio.paused) {
-        try {
-          await audio.play();
-          btn.textContent = '❚❚ Mettre en pause';
-          status.textContent = 'Présentation en cours…';
-        } catch {
-          status.textContent = 'Impossible de lancer l’audio. Vérifiez que SIte-85.mp3 est bien présent à côté de cette page.';
-        }
-      } else {
-        audio.pause();
-        btn.textContent = '▶ Reprendre la présentation';
-        status.textContent = 'Présentation en pause.';
-      }
-    });
-
-    audio.addEventListener('ended', () => {
-      btn.textContent = '↻ Rejouer la présentation';
-      status.textContent = 'Présentation terminée.';
-    });
-  </script>
+<section id="intro">
+<div id="visual"></div>
+<div class="content">
+<div class="kicker">Dossier // 085</div>
+<h1>INSTALLATION <span>N°85</span></h1>
+<p class="lead">Une nouvelle expérience vous attend. De nouveaux rôles, une nouvelle atmosphère et surtout… un nouveau gameplay.</p>
+<button id="start">▶ Lancer l'expérience</button>
+<div id="status">Cliquez pour commencer la présentation.</div>
+</div>
+<div id="lyrics" aria-live="polite"><div id="lyricText"></div><div id="counter"></div></div>
+<button id="replay">↻ Rejouer l'expérience</button>
+<audio id="audio" src="SIte-85.mp3" preload="auto"></audio>
+</section>
+<script>
+const audio=document.getElementById('audio'),start=document.getElementById('start'),replay=document.getElementById('replay'),status=document.getElementById('status'),lyric=document.getElementById('lyricText'),counter=document.getElementById('counter');
+const lines=[
+["Bienvenue sur l'installation N°85.",0],
+["Vous allez découvrir un tout nouveau monde rempli de…",3],
+["surprises.",7],
+["De nouveaux rôles.",10],
+["Une nouvelle atmosphère.",13],
+["Et surtout…",16],
+["un nouveau gameplay.",18],
+["Alors n'attendez plus.",22],
+["Venez découvrir la refonte de l'installation 85.",25]
+];
+function reset(){document.body.classList.remove('playing','finished');lyric.textContent="";counter.textContent="";start.textContent="▶ Lancer l'expérience";status.textContent="Cliquez pour commencer la présentation."}
+function play(){document.body.classList.remove('finished');document.body.classList.add('playing');audio.currentTime=0;audio.play().then(()=>{status.textContent="Présentation en cours…"}).catch(()=>{status.textContent="Autorisez la lecture audio puis réessayez."})}
+start.addEventListener('click',play);replay.addEventListener('click',play);
+audio.addEventListener('timeupdate',()=>{
+ const t=audio.currentTime;let current=null;
+ for(const line of lines)if(t>=line[1])current=line;
+ if(current){lyric.textContent=current[0];counter.textContent=Math.floor(t)+" s  /  INSTALLATION N°85"}
+});
+audio.addEventListener('ended',()=>{document.body.classList.remove('playing');document.body.classList.add('finished');lyric.textContent="L'installation vous attend.";counter.textContent="PRÉSENTATION TERMINÉE";status.textContent="";});
+</script>
 </body>
 </html>
